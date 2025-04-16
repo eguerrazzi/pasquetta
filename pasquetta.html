@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Dividi la Stanza</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      padding: 10px;
+      font-size: 1rem;
+      margin-right: 10px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      padding: 5px 0;
+    }
+    .amount {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>Dividi la stanza (€250)</h2>
+  <input type="text" id="nameInput" placeholder="Nome e cognome">
+  <button onclick="addPerson()">Aggiungi</button>
+
+  <ul id="peopleList"></ul>
+
+  <div class="amount" id="amountPerPerson"></div>
+
+  <script>
+    const roomCost = 250;
+    const people = [];
+
+    function addPerson() {
+      const input = document.getElementById("nameInput");
+      const name = input.value.trim();
+      if (name === "") return;
+
+      people.push(name);
+      input.value = "";
+      updateList();
+    }
+
+    function updateList() {
+      const list = document.getElementById("peopleList");
+      list.innerHTML = "";
+      people.forEach((person, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${index + 1}) ${person}`;
+        list.appendChild(li);
+      });
+
+      const perPerson = (roomCost / people.length).toFixed(2);
+      document.getElementById("amountPerPerson").textContent =
+        `€${perPerson} / persona`;
+    }
+  </script>
+</body>
+</html>
